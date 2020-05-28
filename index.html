@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Etch a Sketch</title>
+  <meta charset="UTF-8"/>
+  <link rel= "stylesheet" href="style.css">
+</head>
+<body>
+    <button> Reset </button>
+    <div id= beständig >
+    
+
+    </div>
+    </div>
+    <script>
+      //makes a Grid with input width/height in the same box (960px)
+   function makeGrid(){
+        let grids = prompt('width/height:');
+        grids = +grids;
+        const beständig = document.querySelector('#beständig'); 
+        const container = document.createElement('div');
+        container.setAttribute('id','container');
+        beständig.appendChild(container);
+
+        for (let j= 0; j<grids; j++){
+          const line = document.createElement('div');
+          line.setAttribute('id','line');
+          container.appendChild(line);
+
+          for (let i= 0; i< grids; i++ ){
+            const squares = document.createElement('div');
+            squares.classList.add('square');
+         
+            let grid ;
+            if (grids>50){
+             
+              squares.style.border = 1+'px'+ ' solid'+' black';
+              grid = 960/grids-2;
+            }
+            else {
+              squares.style.border = 2 + 'px'+ ' solid'+ ' black';
+              grid = 960/grids-4;
+            }
+             
+             
+            squares.style.width= grid+'px';
+            squares.style.height = grid+'px';
+            
+            line.appendChild(squares);
+            
+          }
+        
+        } 
+   }
+   function hoverColor(){//if you hover about a box it gets colored
+
+    let colo = document.querySelectorAll('.square');
+     colo.forEach((square)=>{
+       square.addEventListener('mouseenter',(e) => {
+
+        if (square.getAttribute('id')== 'colored'){ //hover the second or ... time about it
+         let oldColor = square.style.backgroundColor ;
+         let firstComma = oldColor.search(',');
+         let r = oldColor.substring(4,firstComma);
+         oldColor = oldColor.substring(firstComma+1,);
+         let secondComma = oldColor.search(',');
+         let g = oldColor.substring(0,secondComma);
+         let b = oldColor.slice(secondComma+1,-1);
+         r -=  25;
+         g -= 25;
+         b -= 25;
+         let rgb = 'rgb('+r+','+g+','+b+')';
+         square.style.backgroundColor = rgb;
+
+        }
+        else{                                     //hover the first time about it
+          square.classList.add('colored');
+          square.setAttribute('id','colored');
+          let r = Math.floor(Math.random()*256);
+          let g =Math.floor(Math.random()*256);
+          let b = Math.floor(Math.random()*256);
+          let rgb = 'rgb('+r+','+g+','+b+')';
+          square.style.backgroundColor = rgb;
+        }
+       }); 
+     
+     });  
+    
+    } 
+    function deleteGrid(){              //delete actual grid and makes a new one with users input
+            let delet = document.querySelector('#container');
+            
+              delet.parentNode.removeChild(delet);
+            
+            makeGrid();
+            hoverColor();
+    }
+    function randomColor(){
+      
+      return rgb;
+    }
+
+    makeGrid(); //start grid
+    hoverColor();
+    
+    const button = document.querySelector('button');//click on the reset button
+     button.addEventListener('click',deleteGrid);
+     
+      
+
+     
+    </script>
+</body>
+</html>
